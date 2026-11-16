@@ -1,0 +1,926 @@
+[
+ {
+  "id": "multi-1",
+  "split": "train",
+  "text": "You handled the client escalation calmly and gave everyone clear tasks. Your reports always arrive before the deadline.",
+  "tags": [
+   {
+    "attribute": "Leadership",
+    "sentiment": "Positive"
+   },
+   {
+    "attribute": "Time Management",
+    "sentiment": "Positive"
+   }
+  ]
+ },
+ {
+  "id": "multi-2",
+  "split": "train",
+  "text": "The code you shipped was clean and well tested. You also explained every change clearly in the review.",
+  "tags": [
+   {
+    "attribute": "Work Quality",
+    "sentiment": "Positive"
+   },
+   {
+    "attribute": "Communication",
+    "sentiment": "Positive"
+   }
+  ]
+ },
+ {
+  "id": "multi-3",
+  "split": "train",
+  "text": "You picked up the new tool in a single day. You took full responsibility when the first rollout had a bug.",
+  "tags": [
+   {
+    "attribute": "Adaptability",
+    "sentiment": "Positive"
+   },
+   {
+    "attribute": "Accountability",
+    "sentiment": "Positive"
+   }
+  ]
+ },
+ {
+  "id": "multi-4",
+  "split": "test",
+  "text": "You clear more tickets than anyone else on the team. You also help others whenever they get stuck.",
+  "tags": [
+   {
+    "attribute": "Productivity",
+    "sentiment": "Positive"
+   },
+   {
+    "attribute": "Teamwork",
+    "sentiment": "Positive"
+   }
+  ]
+ },
+ {
+  "id": "multi-5",
+  "split": "train",
+  "text": "That automation idea was really creative and saved us hours. The finished work was polished and error free.",
+  "tags": [
+   {
+    "attribute": "Innovation",
+    "sentiment": "Positive"
+   },
+   {
+    "attribute": "Work Quality",
+    "sentiment": "Positive"
+   }
+  ]
+ },
+ {
+  "id": "multi-6",
+  "split": "test",
+  "text": "You always show up when the team needs help. You share what you learn instead of keeping it to yourself.",
+  "tags": [
+   {
+    "attribute": "Reliability",
+    "sentiment": "Positive"
+   },
+   {
+    "attribute": "Teamwork",
+    "sentiment": "Positive"
+   }
+  ]
+ },
+ {
+  "id": "multi-7",
+  "split": "test",
+  "text": "You gave the team a clear plan before the launch. You handled the sudden change of schedule without any fuss.",
+  "tags": [
+   {
+    "attribute": "Leadership",
+    "sentiment": "Positive"
+   },
+   {
+    "attribute": "Adaptability",
+    "sentiment": "Positive"
+   }
+  ]
+ },
+ {
+  "id": "multi-8",
+  "split": "test",
+  "text": "You admit your mistakes openly and fix them fast. Your emails are short and to the point.",
+  "tags": [
+   {
+    "attribute": "Accountability",
+    "sentiment": "Positive"
+   },
+   {
+    "attribute": "Communication",
+    "sentiment": "Positive"
+   }
+  ]
+ },
+ {
+  "id": "multi-9",
+  "split": "train",
+  "text": "You took over the team lead role smoothly. Your tickets are getting closed faster every week.",
+  "tags": [
+   {
+    "attribute": "Leadership",
+    "sentiment": "Positive"
+   },
+   {
+    "attribute": "Productivity",
+    "sentiment": "Positive"
+   }
+  ]
+ },
+ {
+  "id": "multi-10",
+  "split": "train",
+  "text": "Your designs are pixel perfect every time. You never miss a meeting and always arrive prepared.",
+  "tags": [
+   {
+    "attribute": "Work Quality",
+    "sentiment": "Positive"
+   },
+   {
+    "attribute": "Reliability",
+    "sentiment": "Positive"
+   }
+  ]
+ },
+ {
+  "id": "multi-11",
+  "split": "train",
+  "text": "You keep missing deadlines on your tasks. Your updates in the group chat are confusing and hard to follow.",
+  "tags": [
+   {
+    "attribute": "Time Management",
+    "sentiment": "Negative"
+   },
+   {
+    "attribute": "Communication",
+    "sentiment": "Negative"
+   }
+  ]
+ },
+ {
+  "id": "multi-12",
+  "split": "train",
+  "text": "You forget commitments you make in meetings. When things slip you blame other people.",
+  "tags": [
+   {
+    "attribute": "Reliability",
+    "sentiment": "Negative"
+   },
+   {
+    "attribute": "Accountability",
+    "sentiment": "Negative"
+   }
+  ]
+ },
+ {
+  "id": "multi-13",
+  "split": "test",
+  "text": "Your last report was full of typos and wrong numbers. You also submitted it two days late.",
+  "tags": [
+   {
+    "attribute": "Work Quality",
+    "sentiment": "Negative"
+   },
+   {
+    "attribute": "Time Management",
+    "sentiment": "Negative"
+   }
+  ]
+ },
+ {
+  "id": "multi-14",
+  "split": "train",
+  "text": "You refuse to try any new tools. Your task list keeps growing and very little gets finished.",
+  "tags": [
+   {
+    "attribute": "Adaptability",
+    "sentiment": "Negative"
+   },
+   {
+    "attribute": "Productivity",
+    "sentiment": "Negative"
+   }
+  ]
+ },
+ {
+  "id": "multi-15",
+  "split": "train",
+  "text": "You micromanage every little decision on the project. You also take credit for work the rest of us did.",
+  "tags": [
+   {
+    "attribute": "Leadership",
+    "sentiment": "Negative"
+   },
+   {
+    "attribute": "Teamwork",
+    "sentiment": "Negative"
+   }
+  ]
+ },
+ {
+  "id": "multi-16",
+  "split": "test",
+  "text": "You barely finished anything this sprint. You also turn up late to almost every meeting.",
+  "tags": [
+   {
+    "attribute": "Productivity",
+    "sentiment": "Negative"
+   },
+   {
+    "attribute": "Time Management",
+    "sentiment": "Negative"
+   }
+  ]
+ },
+ {
+  "id": "multi-17",
+  "split": "train",
+  "text": "You never bring any fresh ideas to brainstorms. You complain for weeks whenever the process changes.",
+  "tags": [
+   {
+    "attribute": "Innovation",
+    "sentiment": "Negative"
+   },
+   {
+    "attribute": "Adaptability",
+    "sentiment": "Negative"
+   }
+  ]
+ },
+ {
+  "id": "multi-18",
+  "split": "train",
+  "text": "You cancelled on the team twice this week without warning. Your code keeps coming back with bugs.",
+  "tags": [
+   {
+    "attribute": "Reliability",
+    "sentiment": "Negative"
+   },
+   {
+    "attribute": "Work Quality",
+    "sentiment": "Negative"
+   }
+  ]
+ },
+ {
+  "id": "multi-19",
+  "split": "train",
+  "text": "You always have an excuse when something goes wrong. You talk over people and never let them finish.",
+  "tags": [
+   {
+    "attribute": "Accountability",
+    "sentiment": "Negative"
+   },
+   {
+    "attribute": "Communication",
+    "sentiment": "Negative"
+   }
+  ]
+ },
+ {
+  "id": "multi-20",
+  "split": "train",
+  "text": "You give the team no direction at all. Nothing you work on seems to get finished.",
+  "tags": [
+   {
+    "attribute": "Leadership",
+    "sentiment": "Negative"
+   },
+   {
+    "attribute": "Productivity",
+    "sentiment": "Negative"
+   }
+  ]
+ },
+ {
+  "id": "multi-21",
+  "split": "test",
+  "text": "You dismiss other people's ideas without listening. You also resist trying any new approach.",
+  "tags": [
+   {
+    "attribute": "Teamwork",
+    "sentiment": "Negative"
+   },
+   {
+    "attribute": "Innovation",
+    "sentiment": "Negative"
+   }
+  ]
+ },
+ {
+  "id": "multi-22",
+  "split": "train",
+  "text": "Your spreadsheet had three errors in the first five minutes. You also promised the update twice and never sent it.",
+  "tags": [
+   {
+    "attribute": "Work Quality",
+    "sentiment": "Negative"
+   },
+   {
+    "attribute": "Reliability",
+    "sentiment": "Negative"
+   }
+  ]
+ },
+ {
+  "id": "multi-23",
+  "split": "train",
+  "text": "You freeze when the requirements shift. You also blame the tools whenever your tasks slip.",
+  "tags": [
+   {
+    "attribute": "Adaptability",
+    "sentiment": "Negative"
+   },
+   {
+    "attribute": "Accountability",
+    "sentiment": "Negative"
+   }
+  ]
+ },
+ {
+  "id": "multi-24",
+  "split": "test",
+  "text": "Your messages sound harsh and have put people off. You also start important tasks at the very last minute.",
+  "tags": [
+   {
+    "attribute": "Communication",
+    "sentiment": "Negative"
+   },
+   {
+    "attribute": "Time Management",
+    "sentiment": "Negative"
+   }
+  ]
+ },
+ {
+  "id": "multi-25",
+  "split": "train",
+  "text": "You lead the team confidently, but your written updates are vague and hard to follow.",
+  "tags": [
+   {
+    "attribute": "Leadership",
+    "sentiment": "Positive"
+   },
+   {
+    "attribute": "Communication",
+    "sentiment": "Negative"
+   }
+  ]
+ },
+ {
+  "id": "multi-26",
+  "split": "test",
+  "text": "You come up with brilliant ideas, but you rarely deliver them on time.",
+  "tags": [
+   {
+    "attribute": "Innovation",
+    "sentiment": "Positive"
+   },
+   {
+    "attribute": "Time Management",
+    "sentiment": "Negative"
+   }
+  ]
+ },
+ {
+  "id": "multi-27",
+  "split": "train",
+  "text": "You support teammates generously, but you often ignore deadlines on your own work.",
+  "tags": [
+   {
+    "attribute": "Teamwork",
+    "sentiment": "Positive"
+   },
+   {
+    "attribute": "Time Management",
+    "sentiment": "Negative"
+   }
+  ]
+ },
+ {
+  "id": "multi-28",
+  "split": "train",
+  "text": "Your code is excellent, but you never share what you learn with the others.",
+  "tags": [
+   {
+    "attribute": "Work Quality",
+    "sentiment": "Positive"
+   },
+   {
+    "attribute": "Teamwork",
+    "sentiment": "Negative"
+   }
+  ]
+ },
+ {
+  "id": "multi-29",
+  "split": "train",
+  "text": "You always show up on time, however you rarely bring anything new to the discussion.",
+  "tags": [
+   {
+    "attribute": "Reliability",
+    "sentiment": "Positive"
+   },
+   {
+    "attribute": "Innovation",
+    "sentiment": "Negative"
+   }
+  ]
+ },
+ {
+  "id": "multi-30",
+  "split": "train",
+  "text": "You deliver a huge amount of work, but a lot of it needs fixing afterwards.",
+  "tags": [
+   {
+    "attribute": "Productivity",
+    "sentiment": "Positive"
+   },
+   {
+    "attribute": "Work Quality",
+    "sentiment": "Negative"
+   }
+  ]
+ },
+ {
+  "id": "multi-31",
+  "split": "train",
+  "text": "You adapted to the new process instantly, but you never tell anyone what you are doing.",
+  "tags": [
+   {
+    "attribute": "Adaptability",
+    "sentiment": "Positive"
+   },
+   {
+    "attribute": "Communication",
+    "sentiment": "Negative"
+   }
+  ]
+ },
+ {
+  "id": "multi-32",
+  "split": "train",
+  "text": "You explain things really clearly. However, you tend to pass the blame when plans fail.",
+  "tags": [
+   {
+    "attribute": "Communication",
+    "sentiment": "Positive"
+   },
+   {
+    "attribute": "Accountability",
+    "sentiment": "Negative"
+   }
+  ]
+ },
+ {
+  "id": "multi-33",
+  "split": "train",
+  "text": "You are friendly with everyone, but you rarely finish the tasks you start.",
+  "tags": [
+   {
+    "attribute": "Teamwork",
+    "sentiment": "Positive"
+   },
+   {
+    "attribute": "Productivity",
+    "sentiment": "Negative"
+   }
+  ]
+ },
+ {
+  "id": "multi-34",
+  "split": "test",
+  "text": "You own your mistakes openly, but you keep missing the same deadlines.",
+  "tags": [
+   {
+    "attribute": "Accountability",
+    "sentiment": "Positive"
+   },
+   {
+    "attribute": "Time Management",
+    "sentiment": "Negative"
+   }
+  ]
+ },
+ {
+  "id": "multi-35",
+  "split": "train",
+  "text": "You keep the team motivated. But you are often unreachable when we need a decision.",
+  "tags": [
+   {
+    "attribute": "Leadership",
+    "sentiment": "Positive"
+   },
+   {
+    "attribute": "Reliability",
+    "sentiment": "Negative"
+   }
+  ]
+ },
+ {
+  "id": "multi-36",
+  "split": "train",
+  "text": "You came up with a clever workaround, but you left no notes for anyone else to follow.",
+  "tags": [
+   {
+    "attribute": "Innovation",
+    "sentiment": "Positive"
+   },
+   {
+    "attribute": "Communication",
+    "sentiment": "Negative"
+   }
+  ]
+ },
+ {
+  "id": "multi-37",
+  "split": "train",
+  "text": "You plan your time beautifully, but you brush off everyone else's suggestions.",
+  "tags": [
+   {
+    "attribute": "Time Management",
+    "sentiment": "Positive"
+   },
+   {
+    "attribute": "Teamwork",
+    "sentiment": "Negative"
+   }
+  ]
+ },
+ {
+  "id": "multi-38",
+  "split": "train",
+  "text": "You stay calm when requirements change, but your finished work has too many small errors.",
+  "tags": [
+   {
+    "attribute": "Adaptability",
+    "sentiment": "Positive"
+   },
+   {
+    "attribute": "Work Quality",
+    "sentiment": "Negative"
+   }
+  ]
+ },
+ {
+  "id": "multi-39",
+  "split": "train",
+  "text": "You are incredibly dependable, but you never suggest any improvements to how we work.",
+  "tags": [
+   {
+    "attribute": "Reliability",
+    "sentiment": "Positive"
+   },
+   {
+    "attribute": "Innovation",
+    "sentiment": "Negative"
+   }
+  ]
+ },
+ {
+  "id": "multi-40",
+  "split": "train",
+  "text": "Your output is impressive this quarter, but your tasks are often handed in after the deadline.",
+  "tags": [
+   {
+    "attribute": "Productivity",
+    "sentiment": "Positive"
+   },
+   {
+    "attribute": "Time Management",
+    "sentiment": "Negative"
+   }
+  ]
+ },
+ {
+  "id": "multi-41",
+  "split": "train",
+  "text": "You are great at motivating people, but you avoid taking responsibility when the team misses a goal.",
+  "tags": [
+   {
+    "attribute": "Leadership",
+    "sentiment": "Positive"
+   },
+   {
+    "attribute": "Accountability",
+    "sentiment": "Negative"
+   }
+  ]
+ },
+ {
+  "id": "multi-42",
+  "split": "train",
+  "text": "You handle every new tool with ease, but your explanations to the team are rushed and unclear.",
+  "tags": [
+   {
+    "attribute": "Adaptability",
+    "sentiment": "Positive"
+   },
+   {
+    "attribute": "Communication",
+    "sentiment": "Negative"
+   }
+  ]
+ },
+ {
+  "id": "multi-43",
+  "split": "train",
+  "text": "You communicate beautifully with clients, but you often forget to follow up on what you promised.",
+  "tags": [
+   {
+    "attribute": "Communication",
+    "sentiment": "Positive"
+   },
+   {
+    "attribute": "Reliability",
+    "sentiment": "Negative"
+   }
+  ]
+ },
+ {
+  "id": "multi-44",
+  "split": "train",
+  "text": "You plan the schedule well, but the quality of the final product suffers because of shortcuts.",
+  "tags": [
+   {
+    "attribute": "Time Management",
+    "sentiment": "Positive"
+   },
+   {
+    "attribute": "Work Quality",
+    "sentiment": "Negative"
+   }
+  ]
+ },
+ {
+  "id": "multi-45",
+  "split": "train",
+  "text": "You pitch fresh ideas all the time, but you take offence whenever someone disagrees.",
+  "tags": [
+   {
+    "attribute": "Innovation",
+    "sentiment": "Positive"
+   },
+   {
+    "attribute": "Teamwork",
+    "sentiment": "Negative"
+   }
+  ]
+ },
+ {
+  "id": "multi-46",
+  "split": "train",
+  "text": "You take full ownership of your tasks, however you tend to struggle when plans change suddenly.",
+  "tags": [
+   {
+    "attribute": "Accountability",
+    "sentiment": "Positive"
+   },
+   {
+    "attribute": "Adaptability",
+    "sentiment": "Negative"
+   }
+  ]
+ },
+ {
+  "id": "multi-47",
+  "split": "test",
+  "text": "You close an impressive number of tickets, but you rarely tell the team what you are working on.",
+  "tags": [
+   {
+    "attribute": "Productivity",
+    "sentiment": "Positive"
+   },
+   {
+    "attribute": "Communication",
+    "sentiment": "Negative"
+   }
+  ]
+ },
+ {
+  "id": "multi-48",
+  "split": "train",
+  "text": "Your reports are always accurate, but you hand them in late almost every week.",
+  "tags": [
+   {
+    "attribute": "Work Quality",
+    "sentiment": "Positive"
+   },
+   {
+    "attribute": "Time Management",
+    "sentiment": "Negative"
+   }
+  ]
+ },
+ {
+  "id": "multi-49",
+  "split": "test",
+  "text": "You planned the sprint carefully and everything shipped on schedule. Your explanations in the demo were clear and easy to follow. You also took the blame when one feature failed.",
+  "tags": [
+   {
+    "attribute": "Time Management",
+    "sentiment": "Positive"
+   },
+   {
+    "attribute": "Communication",
+    "sentiment": "Positive"
+   },
+   {
+    "attribute": "Accountability",
+    "sentiment": "Positive"
+   }
+  ]
+ },
+ {
+  "id": "multi-50",
+  "split": "train",
+  "text": "You are the fastest on the team at closing tickets. Your code needs a lot of rework afterwards. You also never ask anyone for help.",
+  "tags": [
+   {
+    "attribute": "Productivity",
+    "sentiment": "Positive"
+   },
+   {
+    "attribute": "Work Quality",
+    "sentiment": "Negative"
+   },
+   {
+    "attribute": "Teamwork",
+    "sentiment": "Negative"
+   }
+  ]
+ },
+ {
+  "id": "multi-51",
+  "split": "train",
+  "text": "You gave the team a clear direction for the quarter. You were late to nearly every planning meeting. You also stayed relaxed when the plan changed twice.",
+  "tags": [
+   {
+    "attribute": "Leadership",
+    "sentiment": "Positive"
+   },
+   {
+    "attribute": "Time Management",
+    "sentiment": "Negative"
+   },
+   {
+    "attribute": "Adaptability",
+    "sentiment": "Positive"
+   }
+  ]
+ },
+ {
+  "id": "multi-52",
+  "split": "train",
+  "text": "Your presentation was creative and fresh. The slides had typos on almost every page. You also skipped the rehearsal without any warning.",
+  "tags": [
+   {
+    "attribute": "Innovation",
+    "sentiment": "Positive"
+   },
+   {
+    "attribute": "Work Quality",
+    "sentiment": "Negative"
+   },
+   {
+    "attribute": "Reliability",
+    "sentiment": "Negative"
+   }
+  ]
+ },
+ {
+  "id": "multi-53",
+  "split": "train",
+  "text": "You always follow through on what you promise. You teach the new hires patiently. You also keep every project on a tight schedule.",
+  "tags": [
+   {
+    "attribute": "Reliability",
+    "sentiment": "Positive"
+   },
+   {
+    "attribute": "Teamwork",
+    "sentiment": "Positive"
+   },
+   {
+    "attribute": "Time Management",
+    "sentiment": "Positive"
+   }
+  ]
+ },
+ {
+  "id": "multi-54",
+  "split": "train",
+  "text": "You refuse to admit when your estimates are wrong. Your emails ramble and bury the key point. You also resist every new tool we introduce.",
+  "tags": [
+   {
+    "attribute": "Accountability",
+    "sentiment": "Negative"
+   },
+   {
+    "attribute": "Communication",
+    "sentiment": "Negative"
+   },
+   {
+    "attribute": "Adaptability",
+    "sentiment": "Negative"
+   }
+  ]
+ },
+ {
+  "id": "multi-55",
+  "split": "train",
+  "text": "You were appointed lead for the Pune rollout. You also present the weekly status to the stakeholders.",
+  "tags": [
+   {
+    "attribute": "Leadership",
+    "sentiment": "Neutral"
+   },
+   {
+    "attribute": "Communication",
+    "sentiment": "Neutral"
+   }
+  ]
+ },
+ {
+  "id": "multi-56",
+  "split": "train",
+  "text": "You work with the platform team on the checkout flow. You are the on-call contact every second week.",
+  "tags": [
+   {
+    "attribute": "Teamwork",
+    "sentiment": "Neutral"
+   },
+   {
+    "attribute": "Reliability",
+    "sentiment": "Neutral"
+   }
+  ]
+ },
+ {
+  "id": "multi-57",
+  "split": "train",
+  "text": "You handle around fifteen tickets on a normal day. You review the quality checklist before each release.",
+  "tags": [
+   {
+    "attribute": "Productivity",
+    "sentiment": "Neutral"
+   },
+   {
+    "attribute": "Work Quality",
+    "sentiment": "Neutral"
+   }
+  ]
+ },
+ {
+  "id": "multi-58",
+  "split": "test",
+  "text": "You moved from the backend team to mobile this year. You are researching new analytics tools for the team.",
+  "tags": [
+   {
+    "attribute": "Adaptability",
+    "sentiment": "Neutral"
+   },
+   {
+    "attribute": "Innovation",
+    "sentiment": "Neutral"
+   }
+  ]
+ },
+ {
+  "id": "multi-59",
+  "split": "test",
+  "text": "You are the named owner of the vendor renewal. You block out two hours every morning for focused work.",
+  "tags": [
+   {
+    "attribute": "Accountability",
+    "sentiment": "Neutral"
+   },
+   {
+    "attribute": "Time Management",
+    "sentiment": "Neutral"
+   }
+  ]
+ },
+ {
+  "id": "multi-60",
+  "split": "train",
+  "text": "You explain the roadmap so clearly that nobody has questions afterwards. You also joined the innovation committee this year.",
+  "tags": [
+   {
+    "attribute": "Communication",
+    "sentiment": "Positive"
+   },
+   {
+    "attribute": "Innovation",
+    "sentiment": "Neutral"
+   }
+  ]
+ }
+]

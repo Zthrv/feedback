@@ -1,0 +1,109 @@
+{
+  "notes": [
+    "block: whole words that are always rejected (also caught when disguised: sh1t, f*ck, fuuuck, f u c k, and with a plural s).",
+    "roots: rejected when they appear anywhere inside a word. Only for strings that never occur in innocent words or names.",
+    "phrases: rejected when the words appear together in this order.",
+    "suspicious: never rejected on their own. They only decide whether the slower BERT check needs to run.",
+    "Deliberately NOT in block because they have innocent uses: hell, damn, crap, bc, mc, homo (sapiens), tit (for tat), kamini (a name), lode, laude, hoe, knob, cum (laude), sex, rape, and insults like stupid or idiot (BERT judges those in context)."
+  ],
+  "block": [
+    "fuck", "fucked", "fucker", "fucking", "fuckin", "fucken", "fuckhead", "fuckface", "fuckwit", "fucktard",
+    "fuckup", "fuckoff", "fuckboy", "fuckall", "fuckery", "motherfucker", "motherfucking", "muthafucka", "mofo",
+    "clusterfuck", "mindfuck", "fck", "fcking", "fcuk", "fuk", "fuking", "fukin", "fuq", "fuc", "fvck", "phuck",
+    "phuk", "effing", "fking", "fkn", "fkin", "fugly", "wtf", "stfu", "gtfo", "omfg", "kys",
+
+    "shit", "shitty", "shite", "shitting", "shitted", "shithead", "shitface", "shitbag", "shithole", "shitshow",
+    "shitstain", "shitstorm", "shitload", "bullshit", "bullshitting", "horseshit", "dipshit", "batshit",
+    "apeshit", "chickenshit", "jackshit", "sht", "shyt",
+
+    "bitch", "bitches", "bitchy", "bitching", "bitched", "biatch", "biotch", "sonofabitch",
+
+    "ass", "asses", "arse", "asshole", "arsehole", "asshat", "asswipe", "arsewipe", "assclown", "asslicker",
+    "asskisser", "dumbass", "jackass", "smartass", "fatass", "lardass",
+
+    "bastard", "bollocks", "wanker", "wank", "wanking", "tosser", "twat", "prick", "dick", "dickhead",
+    "dickface", "dickwad", "cock", "cockhead", "cocksucker", "cocksucking", "knobhead", "bellend", "pussy",
+    "pussies", "cunt", "cunty",
+
+    "slut", "slutty", "whore", "whoring", "skank", "skanky", "hooker", "thot",
+
+    "douche", "douchebag", "scumbag", "jerkoff", "jackoff",
+
+    "tits", "titties", "boobs", "boobies", "dildo", "blowjob", "handjob", "jizz", "porn", "porno", "horny",
+    "penis", "vagina", "pedo",
+
+    "nigger", "nigga", "negro", "coon", "gook", "spic", "wetback", "kike", "paki", "raghead", "towelhead",
+    "beaner", "faggot", "fag", "lesbo", "tranny", "shemale", "retard", "retarded", "tard", "spaz", "spastic",
+    "mongoloid",
+
+    "chutiya", "chutiye", "chutia", "chutiyapa", "chutiyap", "chutya", "chut", "choot", "chootiya", "chutad",
+    "chutmarike",
+    "madarchod", "maderchod", "madarchot", "madarjaat",
+    "bhenchod", "behenchod", "behnchod", "bahenchod", "bhenchot", "banchod", "bhanchod",
+    "bsdk", "bhosdike", "bhosdiwale", "bhosdiwala", "bhosdi", "bhosda", "bhosada", "bhosadi", "bhosadike",
+    "bhosdika", "tmkc", "bkl",
+    "gandu", "gaandu", "gand", "gaand", "gandfat",
+    "lund", "lundura", "lavda", "lavde", "lawda", "lawde", "loda", "lauda", "lodu", "lawdu",
+    "randi", "raand", "randwa", "randibaaz", "randikhana",
+    "harami", "haraami", "haramkhor", "haraamkhor", "haramzada", "haramzade", "haramzadi",
+    "kamina", "kamine", "kaminey", "kameena", "kameene", "kutta", "kutte", "kutiya", "kuttiya",
+    "suar", "suwar", "sooar", "tatti", "tatte", "jhant", "jhaant", "jhaatu", "jhatu", "jhantu",
+    "bakchod", "bakchodi", "bakland", "chodu", "chod", "chodna", "chudai", "chudwa", "chinal", "chhinal",
+    "bhadwa", "bhadwe", "bhadva", "bhadua", "dalla",
+
+    "punda", "pundai", "thevidiya", "thevdiya", "thayoli", "oombu", "myre", "myru", "kandaroli", "lanja",
+    "lanjakodaka", "pooku", "bokachoda", "khanki", "boshdi", "zavadya", "jhavadya", "bhikarchot"
+  ],
+  "roots": [
+    "fuck", "motherf", "chutiy", "madarchod", "bhenchod", "behenchod", "bhosd", "bhosad"
+  ],
+  "phrases": [
+    "son of a bitch", "piece of shit", "kill yourself", "kill urself", "go die", "drop dead", "suck my",
+    "blow me", "screw you", "up yours", "go to hell", "rot in hell", "shut the hell up",
+    "teri maa ki", "teri maa ka", "teri maa ko", "maa ki chut", "maa chuda", "maa chod", "maa ki aankh",
+    "behen ke", "bhen ke", "behen ki", "bhen ki", "gaand mara", "gand mara", "gaand maar", "gand maar",
+    "jhaat ke"
+  ],
+  "suspicious": [
+    "hell", "damn", "damned", "dammit", "goddamn", "crap", "crappy", "suck", "sucks", "sucked", "screw",
+    "screwed", "piss", "pissed", "pissing", "bloody", "freaking", "frigging", "fricking", "friggin", "bugger",
+
+    "stupid", "idiot", "idiotic", "moron", "moronic", "imbecile", "dumb", "dumbo", "dummy", "dunce", "fool",
+    "foolish", "useless", "worthless", "pathetic", "loser", "incompetent", "clueless", "brainless",
+    "mindless", "spineless", "gutless", "shameless", "shameful", "disgrace", "disgraceful", "disgusting",
+    "disgust", "gross", "filthy", "nasty", "vile", "scum", "trash", "trashy", "garbage", "rubbish", "junk",
+    "joke", "clown", "pig", "swine", "rat", "snake", "dog", "donkey", "monkey", "ape", "cow", "worm",
+    "parasite", "leech", "creep", "creepy", "freak", "weirdo", "psycho", "psychopath", "sociopath",
+    "lunatic", "maniac", "crazy", "insane", "mental", "nuts", "delusional", "liar", "cheat", "fraud",
+    "thief", "coward", "lazy", "slob", "ugly", "fat", "fatty", "fatso", "obese", "smelly", "stinky", "stink",
+    "hag", "bimbo", "tramp", "slag", "jerk", "punk", "twit", "nitwit", "halfwit", "dimwit", "numbskull",
+    "bonehead", "blockhead", "airhead", "dork", "wimp", "crybaby", "brat", "snob", "hypocrite",
+    "narcissist", "toxic", "cancer", "plague", "curse", "cursed", "evil", "devil", "demon", "witch",
+    "monster", "dirtbag", "sleazebag", "tit", "boob", "homo",
+
+    "hate", "hates", "hated", "hatred", "despise", "loathe", "detest",
+
+    "kill", "killed", "killing", "die", "dies", "died", "dying", "dead", "death", "murder", "murdered",
+    "strangle", "choke", "stab", "shoot", "punch", "slap", "smack", "beat", "beaten", "beating", "kick",
+    "hurt", "harm", "destroy", "burn", "bury", "hang", "lynch", "bleed", "blood", "crush", "threat",
+    "threaten", "threatening", "revenge", "payback", "regret", "suffer", "punish", "weapon", "gun", "knife",
+    "bomb", "attack", "assault", "abuse", "abusive", "harass", "harassment", "violence", "violent", "rape",
+    "raped", "rapist", "molest", "grope", "stalk", "stalker", "suicide",
+
+    "sex", "sexy", "sexual", "sexually", "hottie", "naked", "nude", "breast", "butt", "booty", "kiss",
+    "lick", "seduce", "flirt", "virgin", "erotic", "kinky", "fetish", "orgasm", "masturbate", "condom",
+    "lust", "pervert", "perv", "strip", "stripper",
+
+    "gay", "lesbian", "queer", "dyke", "transgender", "muslim", "hindu", "christian", "jew", "jewish",
+    "sikh", "dalit", "caste", "casteist", "chamar", "bhangi", "terrorist", "jihadi", "nazi", "hitler",
+    "racist", "racism", "sexist", "chink", "chinki", "chinky", "madrasi", "bihari", "immigrant", "foreigner",
+    "cripple", "crippled", "handicapped", "midget", "dwarf", "autistic",
+
+    "saala", "saale", "sala", "sali", "pagal", "paagal", "bewakoof", "bewakuf", "bevkoof", "gadha", "gadhe",
+    "ullu", "nalayak", "nikamma", "nikammi", "ghatiya", "bakwas", "bakwaas", "chup", "besharam",
+    "badtameez", "haraam", "jahil", "gawar", "ganwar", "anpadh", "chor", "dhokebaaz", "jhootha", "jhoota",
+    "makkar", "namard", "hijra", "hijda", "chakka", "chhakka", "mc", "bc", "chapri", "chhapri", "lukkha",
+    "tapori", "aukat", "aukaat", "chudail", "dayan", "daayan", "kalmuha", "manhoos", "chamcha", "tharki",
+    "fattu", "phattu", "bhikhari", "bhikari", "kangal", "kamini", "kutti"
+  ]
+}
