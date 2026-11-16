@@ -31,26 +31,6 @@ class AuthService {
     });
   }
 
-  static async register(employeeId, email, password) {
-    if (!employeeId || !email) {
-      throw httpError(400, "Employee ID and email are required");
-    }
-
-    this.validatePassword(password);
-
-    const user = await UserModel.findByEmployeeId(employeeId);
-
-    // Unknown ID, wrong email and already registered get the same answer,
-    // so the response never reveals which employee IDs exist or who has registered
-    if (!user || user.email.toLowerCase() !== String(email).trim().toLowerCase() || user.is_registered) {
-      throw httpError(400, "Registration failed. Check your Employee ID and email, or contact your administrator.");
-    }
-
-    await UserModel.registerUser(user.user_id, await bcrypt.hash(password, 10));
-
-    return { message: "Registration successful" };
-  }
-
   static async login(email, password) {
     if (typeof email !== "string" || typeof password !== "string" || !email || !password) {
       throw httpError(400, "Email and password are required");

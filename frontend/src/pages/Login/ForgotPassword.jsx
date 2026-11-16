@@ -70,10 +70,6 @@ function ForgotPassword() {
                 autoComplete="email"
                 {...register("email", {
                   required: "Email is required",
-                  pattern: {
-                    value: /^\S+@\S+$/i,
-                    message: "Please enter a valid email address",
-                  },
                 })}
               />
 

@@ -26,32 +26,6 @@ class UserModel {
     return rows[0] || null;
   }
 
-  static async findByEmployeeId(employeeId) {
-    const [rows] = await pool.execute(
-      `
-      SELECT
-        user_id,
-        employee_id,
-        full_name,
-        email,
-        password_hash,
-        department,
-        designation,
-        role,
-        is_active,
-        is_registered,
-        created_at,
-        updated_at
-      FROM users
-      WHERE employee_id = ?
-      LIMIT 1
-      `,
-      [employeeId]
-    );
-
-    return rows[0] || null;
-  }
-
   // The employee ID is left out on purpose: it is never sent to the browser
   static async findById(userId) {
     const [rows] = await pool.execute(
@@ -100,15 +74,6 @@ class UserModel {
   static async getEmployeeId(userId) {
     const [rows] = await pool.execute("SELECT employee_id FROM users WHERE user_id = ?", [userId]);
     return rows[0]?.employee_id || null;
-  }
-
-  static async registerUser(userId, passwordHash) {
-    const [result] = await pool.execute(
-      "UPDATE users SET password_hash = ?, is_registered = TRUE WHERE user_id = ?",
-      [passwordHash, userId]
-    );
-
-    return result;
   }
 
   // The change time lets the auth middleware reject tokens issued before it
