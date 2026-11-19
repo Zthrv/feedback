@@ -14,6 +14,7 @@ class UserModel {
         role,
         is_active,
         is_registered,
+        token_version,
         created_at,
         updated_at
       FROM users
@@ -76,19 +77,23 @@ class UserModel {
     return rows[0]?.employee_id || null;
   }
 
-  // The change time lets the auth middleware reject tokens issued before it
+  // Raising token_version makes the auth middleware reject every token issued before now
   static async changePassword(userId, passwordHash) {
     const [result] = await pool.execute(
-      "UPDATE users SET password_hash = ?, password_changed_at = NOW() WHERE user_id = ?",
+      `UPDATE users SET password_hash = ?, password_changed_at = NOW(), token_version = token_version + 1
+       WHERE user_id = ?`,
       [passwordHash, userId]
     );
 
     return result;
   }
 
-  // The auth middleware rejects every token issued before this moment
+  // Signs the user out everywhere: every token issued so far stops working
   static async logout(userId) {
-    const [result] = await pool.execute("UPDATE users SET logged_out_at = NOW() WHERE user_id = ?", [userId]);
+    const [result] = await pool.execute(
+      "UPDATE users SET logged_out_at = NOW(), token_version = token_version + 1 WHERE user_id = ?",
+      [userId]
+    );
 
     return result;
   }
@@ -100,8 +105,8 @@ class UserModel {
       SELECT
         is_active,
         role,
-        UNIX_TIMESTAMP(password_changed_at) AS password_changed_at,
-        UNIX_TIMESTAMP(logged_out_at) AS logged_out_at
+        token_version,
+        UNIX_TIMESTAMP(password_changed_at) AS password_changed_at
       FROM users
       WHERE user_id = ?
       LIMIT 1

@@ -24,14 +24,12 @@ async function authMiddleware(req, res, next) {
   // Deactivated or deleted accounts lose access immediately
   if (!user || !user.is_active) return unauthorized(res, "Invalid or expired token");
 
-  // Tokens issued before the last password change are no longer accepted
-  if (user.password_changed_at && payload.iat < Math.floor(user.password_changed_at)) {
-    return unauthorized(res, "Your password was changed. Please log in again.");
-  }
+  // Logout and password changes raise token_version, so every older token stops working.
+  // A counter, not a time: a token issued in the same second as a logout is still rejected.
+  if (payload.ver !== user.token_version) {
+    const passwordChanged = user.password_changed_at && payload.iat <= user.password_changed_at;
 
-  // Tokens issued before the last logout are no longer accepted
-  if (user.logged_out_at && payload.iat < Math.floor(user.logged_out_at)) {
-    return unauthorized(res, "Invalid or expired token");
+    return unauthorized(res, passwordChanged ? "Your password was changed. Please log in again." : "Invalid or expired token");
   }
 
   req.user = { userId: payload.userId, role: user.role };

@@ -1,5 +1,6 @@
 import {
   Flag,
+  Hourglass,
   LayoutDashboard,
   MessageSquarePlus,
   MessagesSquare,
@@ -16,6 +17,7 @@ export const navItems = [
   { title: "Add Account", url: "/admin/users", icon: UserPlus, roles: ["Admin"] },
   { title: "All Feedback", url: "/admin/feedback", icon: Users, roles: ["Admin"] },
   { title: "Irrelevant Reports", url: "/admin/irrelevant-reports", icon: Flag, roles: ["Admin"] },
+  { title: "Not Classified by LLM", url: "/admin/unclassified", icon: Hourglass, roles: ["Admin"] },
   { title: "Abusive", url: "/admin/abuse", icon: ShieldAlert, roles: ["Admin"] },
 ];
 

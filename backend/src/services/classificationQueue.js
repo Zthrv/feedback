@@ -6,6 +6,9 @@ import EmbeddingService from "./embeddingService.js";
 
 const RETRY_INTERVAL = 5 * 60 * 1000;
 
+// Longest each LLM call on new feedback may take before the feedback goes to an admin
+const LLM_TIMEOUT = 30 * 1000;
+
 // Works through saved feedback in the background, one at a time,
 // so the sender never waits for the LLM.
 class ClassificationQueue {
@@ -54,6 +57,7 @@ class ClassificationQueue {
   }
 
   // Check one feedback's language, then tag and deliver it. Abusive feedback bounces.
+  // If the LLM takes over 30 seconds or gives an unusable answer, an admin decides instead.
   static async process(feedbackId) {
     const feedback = await FeedbackModel.findPendingById(feedbackId);
 
@@ -61,29 +65,37 @@ class ClassificationQueue {
 
     const { feedback_title: title, feedback_text: text } = feedback;
 
-    const language = await ExplicitFilter.check(title, text);
+    try {
+      const language = await ExplicitFilter.check(title, text, { timeout: LLM_TIMEOUT });
 
-    if (language.explicit) return FeedbackModel.bounce(feedbackId, language);
+      if (language.explicit) return FeedbackModel.bounce(feedbackId, language);
 
-    const attributes = await FeedbackModel.getAttributes();
+      const attributes = await FeedbackModel.getAttributes();
 
-    let tags = null;
+      let tags = null;
 
-    // BERT goes first and answers only when it is sure; the LLM takes the rest
-    if (this.canUseBert()) {
-      try {
-        const result = await BertClassifier.classify(text, attributes);
-        if (result.confident) tags = result.tags;
-      } catch (error) {
-        console.error(`BERT classification failed, using the LLM instead: ${error.message}`);
+      // BERT goes first and answers only when it is sure; the LLM takes the rest
+      if (this.canUseBert()) {
+        try {
+          const result = await BertClassifier.classify(text, attributes);
+          if (result.confident) tags = result.tags;
+        } catch (error) {
+          console.error(`BERT classification failed, using the LLM instead: ${error.message}`);
+        }
       }
+
+      const source = tags ? "bert" : "llm";
+
+      tags ||= await ClassificationService.classifyAttributes(title, text, attributes, { timeout: LLM_TIMEOUT });
+
+      await FeedbackModel.saveTags(feedbackId, tags, source);
+    } catch (error) {
+      // An unreachable LLM is an outage: the feedback stays pending and is retried later
+      if (!error.unusable) throw error;
+
+      console.error(`Feedback ${feedbackId} sent to an admin: ${error.message}`);
+      await FeedbackModel.sendToAdmin(feedbackId);
     }
-
-    const source = tags ? "bert" : "llm";
-
-    tags ||= await ClassificationService.classifyAttributes(title, text, attributes);
-
-    await FeedbackModel.saveTags(feedbackId, tags, source);
   }
 
   // Re-review asked by the recipient. The LLM decides and its answer is final.

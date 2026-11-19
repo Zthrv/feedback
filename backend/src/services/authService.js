@@ -25,8 +25,9 @@ class AuthService {
     }
   }
 
-  static issueToken(userId, role) {
-    return jwt.sign({ userId, role }, process.env.JWT_SECRET, {
+  // `ver` must match users.token_version, which logout and password changes raise
+  static issueToken(userId, role, version) {
+    return jwt.sign({ userId, role, ver: version }, process.env.JWT_SECRET, {
       algorithm: "HS256",
       expiresIn: process.env.JWT_EXPIRES_IN || "1d",
     });
@@ -55,9 +56,10 @@ class AuthService {
       throw httpError(403, "Your account has been deactivated");
     }
 
-    const token = this.issueToken(user.user_id, user.role);
+    const token = this.issueToken(user.user_id, user.role, user.token_version);
 
     delete user.password_hash;
+    delete user.token_version;
 
     return { token, user };
   }
@@ -124,7 +126,10 @@ class AuthService {
     // A reset link requested before the change must not be able to undo it
     await UserModel.deleteResetToken(userId);
 
-    return this.issueToken(userId, role);
+    // The change raised token_version: this session gets a token with the new one
+    const { token_version: version } = await UserModel.findAuthState(userId);
+
+    return this.issueToken(userId, role, version);
   }
 
   static hashToken(token) {

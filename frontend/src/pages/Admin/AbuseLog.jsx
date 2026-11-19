@@ -11,6 +11,7 @@ const detectedByLabels = {
   bert: "Caught by the toxicity model",
   llm: "Caught by the language model",
   report: "Reported by the recipient and confirmed",
+  admin: "Removed by an admin (not classified by the LLM)",
 };
 
 const capitalise = (word) => word.charAt(0).toUpperCase() + word.slice(1);

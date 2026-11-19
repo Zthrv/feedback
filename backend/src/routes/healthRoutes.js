@@ -27,7 +27,8 @@ router.get("/", async (req, res) => {
         SUM(classification_status = 'pending') AS pending,
         SUM(review_status = 'requested') AS reviews,
         SUM(abuse_status = 'requested') AS abuse,
-        SUM(irrelevant_status = 'requested') AS irrelevant
+        SUM(irrelevant_status = 'requested') AS irrelevant,
+        SUM(classification_status = 'admin') AS unclassified
       FROM feedback
       `
     );
@@ -39,6 +40,7 @@ router.get("/", async (req, res) => {
       reReview: Number(rows[0].reviews) || 0,
       abuseReports: Number(rows[0].abuse) || 0,
       irrelevantReports: Number(rows[0].irrelevant) || 0,
+      notClassifiedByLlm: Number(rows[0].unclassified) || 0,
     };
 
   } catch (error) {

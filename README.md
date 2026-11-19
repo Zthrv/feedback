@@ -35,10 +35,11 @@ The language check and the tagging run on your own machine: small BERT models in
 - Read-only view of all feedback.
 - Abuse log of everything that was blocked or removed, with the category and which check caught it.
 - Queue of "irrelevant" reports to keep or remove.
+- Queue of feedback "Not Classified by LLM": when the LLM takes over 30 seconds or gives an unusable answer, an admin tags it by hand and delivers it, or removes it. An admin never decides on feedback sent to themselves.
 
 **Anonymity**
 
-The sender's ID is stored only while a feedback waits for its language check, so a bounce can be reported back to them. It is erased as soon as the check finishes. The abuse log never holds a sender.
+The sender's ID is stored only while a feedback waits for its language check, so a bounce can be reported back to them. It is erased as soon as the check finishes. The abuse log never holds a sender. Sending does not change the sender's `updated_at`, so the database holds no send time that could be matched to a feedback.
 
 ## How a feedback is processed
 
@@ -55,6 +56,8 @@ flowchart TD
     E --> F{BERT classifier:<br/>attribute, sentiment, complexity}
     F -- confident --> G[Tagged and delivered]
     F -- complex clause --> H[Local LLM tags it] --> G
+    D -- over 30 s or unusable answer --> N[Not Classified by LLM:<br/>an admin tags or removes it]
+    H -- over 30 s or unusable answer --> N
 ```
 
 Feedback is saved first and checked in a background queue, so the sender never waits on a model. Anything left pending by a restart or an LLM outage is picked up again automatically.
@@ -267,6 +270,8 @@ Every route is under `/api`. All except login, the two password reset routes and
 | GET | `/admin/abuse-log` | Blocked and removed feedback (admin) |
 | GET | `/admin/irrelevant-reports` | Open irrelevant reports (admin) |
 | POST | `/admin/irrelevant-reports/:id` | Decide a report with `{ "decision": "remove" \| "keep" }` (admin) |
+| GET | `/admin/unclassified` | Feedback the LLM did not classify in time, plus the attribute list (admin) |
+| POST | `/admin/unclassified/:id` | `{ "decision": "deliver", "tags": [{ "attributeId": 1, "feedbackType": "Positive" }] }` (1 to 3 tags) or `{ "decision": "remove" }` (admin) |
 | GET | `/health` | Status of the database, LLM and BERT models |
 
 ## Retraining the classifiers
@@ -288,7 +293,7 @@ Pass `--out ml/model/x.json` to either training script for a dry run that leaves
 ## Security
 
 - Passwords are hashed with bcrypt and must be 8 to 72 characters long.
-- Sessions are HS256 JWTs. Logging out or changing a password rejects every token issued before it.
+- Sessions are HS256 JWTs. Logging out or changing a password raises a per-user token version, which rejects every token issued before it, even within the same second.
 - Rate limits on login, password reset, feedback submission and every authenticated endpoint.
 - Helmet security headers, a strict Content-Security-Policy, `Cache-Control: no-store` on every API response, and request bodies capped at 10 kB.
 - Role checks on admin routes and ownership checks on actions against a single feedback.

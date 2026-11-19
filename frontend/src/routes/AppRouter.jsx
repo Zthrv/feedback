@@ -13,6 +13,7 @@ import CreateUser from "@/pages/Admin/CreateUser";
 import IrrelevantReports from "@/pages/Admin/IrrelevantReports";
 import AllFeedback from "@/pages/Admin/AllFeedback";
 import AbuseLog from "@/pages/Admin/AbuseLog";
+import Unclassified from "@/pages/Admin/Unclassified";
 
 import ProtectedRoute from "./ProtectedRoute";
 import AdminRoute from "./AdminRoute";
@@ -42,6 +43,7 @@ function AppRouter() {
             <Route element={<AdminRoute />}>
               <Route path="/admin/users" element={<CreateUser />} />
               <Route path="/admin/irrelevant-reports" element={<IrrelevantReports />} />
+              <Route path="/admin/unclassified" element={<Unclassified />} />
               <Route path="/admin/feedback" element={<AllFeedback />} />
               <Route path="/admin/abuse" element={<AbuseLog />} />
             </Route>

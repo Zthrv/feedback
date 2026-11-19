@@ -18,6 +18,10 @@ CREATE TABLE IF NOT EXISTS users (
   /* Set by POST /api/auth/logout: tokens issued before it are rejected.
      Existing databases: ALTER TABLE users ADD COLUMN logged_out_at DATETIME NULL AFTER password_changed_at; */
   logged_out_at DATETIME NULL,
+  /* Every login token carries this number. Logout and password changes raise it, so all older
+     tokens stop working at once, even ones issued in the same second.
+     Existing databases: ALTER TABLE users ADD COLUMN token_version INT NOT NULL DEFAULT 0 AFTER logged_out_at; */
+  token_version INT NOT NULL DEFAULT 0,
   department    VARCHAR(100) NULL,
   designation   VARCHAR(100) NULL,
   role          ENUM('Employee','Admin') NOT NULL DEFAULT 'Employee',
@@ -28,6 +32,8 @@ CREATE TABLE IF NOT EXISTS users (
   feedback_bounced INT NOT NULL DEFAULT 0,
   last_feedback_status ENUM('sent','bounced') NULL,
   created_at    TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  /* Not moved when the counts above change (FeedbackModel sets it to itself there): otherwise
+     it would record when each person's feedback went out and could be matched to the feedback */
   updated_at    TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
@@ -40,15 +46,21 @@ CREATE TABLE IF NOT EXISTS attributes (
 );
 
 /* Feedback is anonymous. sender_id is filled only while the feedback is waiting for its
-   language check, so a bounce can be reported back, and is erased as soon as that finishes. */
+   language check, so a bounce can be reported back, and is erased as soon as that finishes.
+   classification_status 'admin': the LLM took over 30 seconds or gave an unusable answer, so an
+   admin tags it by hand (classification_source 'admin') or removes it.
+   Existing databases:
+     ALTER TABLE feedback
+       MODIFY classification_status ENUM('pending','admin','done') NOT NULL DEFAULT 'pending',
+       MODIFY classification_source ENUM('bert','llm','admin') NULL; */
 CREATE TABLE IF NOT EXISTS feedback (
   feedback_id    INT AUTO_INCREMENT PRIMARY KEY,
   receiver_id    INT NOT NULL,
   sender_id      INT NULL,
   feedback_title VARCHAR(150) NOT NULL,
   feedback_text  TEXT NOT NULL,
-  classification_status ENUM('pending','done') NOT NULL DEFAULT 'pending',
-  classification_source ENUM('bert','llm') NULL,
+  classification_status ENUM('pending','admin','done') NOT NULL DEFAULT 'pending',
+  classification_source ENUM('bert','llm','admin') NULL,
   review_status ENUM('requested','done') NULL,
   abuse_checked BOOLEAN NOT NULL DEFAULT FALSE,
   abuse_status  ENUM('requested','done') NULL,
@@ -60,7 +72,7 @@ CREATE TABLE IF NOT EXISTS feedback (
 
 /* Feedback that was blocked or removed as abusive, shown read-only to admins.
    category: sexual, threat, insult, identity, obscene, toxic or NULL.
-   detected_by: wordlist, vectors, bert, llm or report. There is no sender here.
+   detected_by: wordlist, vectors, bert, llm, report or admin. There is no sender here.
    Existing databases:
      ALTER TABLE abuse_log ADD COLUMN category VARCHAR(20) NULL,
        ADD COLUMN detected_by VARCHAR(20) NOT NULL DEFAULT 'report'; */

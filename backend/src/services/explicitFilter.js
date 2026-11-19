@@ -139,8 +139,8 @@ class ExplicitFilter {
   }
 
   // The full check: the instant checks, then the LLM for whatever they are unsure about.
-  // Returns { explicit, method, category }
-  static async check(title, text) {
+  // Returns { explicit, method, category }. `timeout` limits the LLM call.
+  static async check(title, text, { timeout } = {}) {
     [title, text] = [plain(title), plain(text)];
 
     const { verdict, method, category } = await this.screen(title, text);
@@ -148,7 +148,7 @@ class ExplicitFilter {
     if (verdict !== "unsure") return { explicit: verdict === "explicit", method, category };
 
     return {
-      explicit: await ClassificationService.isExplicit(title, text),
+      explicit: await ClassificationService.isExplicit(title, text, { timeout }),
       method: "llm",
       category,
     };

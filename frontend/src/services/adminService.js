@@ -16,6 +16,16 @@ class AdminService {
     return (await api.post(`/admin/irrelevant-reports/${feedbackId}`, { decision })).data;
   }
 
+  // Feedback the LLM could not classify in time: { items, attributes }
+  static async getUnclassified() {
+    return (await api.get("/admin/unclassified")).data.data;
+  }
+
+  // decision is "deliver" (with tags: [{ attributeId, feedbackType }]) or "remove"
+  static async resolveUnclassified(feedbackId, decision, tags) {
+    return (await api.post(`/admin/unclassified/${feedbackId}`, { decision, tags })).data;
+  }
+
   // One page of all delivered feedback, optionally for one receiver
   static async getAllFeedback(page, receiverId) {
     const params = { page, receiverId: receiverId || undefined };

@@ -141,17 +141,19 @@ class FeedbackModel {
   }
 
   // Move a feedback into the abuse log and delete it. `status` is the column that must
-  // still be waiting, so the same feedback is never moved twice.
+  // still be waiting, so the same feedback is never moved twice. True if it was moved.
   static moveToAbuseLog(feedbackId, status, { category = null, detectedBy, countBounce = false }) {
     const waiting = `feedback_id = ? AND ${status}`;
 
     return transaction(async (connection) => {
       if (countBounce) {
+        // updated_at is set to itself so it does not record when this person's feedback bounced
         await connection.execute(
           `
           UPDATE users u
           INNER JOIN feedback f ON f.sender_id = u.user_id
-          SET u.feedback_bounced = u.feedback_bounced + 1, u.last_feedback_status = 'bounced'
+          SET u.feedback_bounced = u.feedback_bounced + 1, u.last_feedback_status = 'bounced',
+              u.updated_at = u.updated_at
           WHERE f.${waiting}
           `,
           [feedbackId]
@@ -168,7 +170,9 @@ class FeedbackModel {
         [category, detectedBy, feedbackId]
       );
 
-      await connection.execute(`DELETE FROM feedback WHERE ${waiting}`, [feedbackId]);
+      const [deleted] = await connection.execute(`DELETE FROM feedback WHERE ${waiting}`, [feedbackId]);
+
+      return deleted.affectedRows === 1;
     });
   }
 
@@ -189,6 +193,46 @@ class FeedbackModel {
     });
   }
 
+  // The LLM could not classify it in time: it waits for an admin instead of being retried
+  static sendToAdmin(feedbackId) {
+    return changedOne(
+      "UPDATE feedback SET classification_status = 'admin' WHERE feedback_id = ? AND classification_status = 'pending'",
+      [feedbackId]
+    );
+  }
+
+  // Feedback the LLM could not classify, waiting for an admin. The sender is never shown.
+  static async getUnclassified() {
+    const [rows] = await pool.execute(
+      `
+      SELECT
+        f.feedback_id, f.feedback_title, f.feedback_text, f.receiver_id,
+        u.full_name AS receiver_name,
+        DATE_FORMAT(f.created_at, '%Y-%m-%d') AS received_on
+      FROM feedback f
+      INNER JOIN users u ON u.user_id = f.receiver_id
+      WHERE f.classification_status = 'admin'
+      ORDER BY f.feedback_id
+      `
+    );
+    return rows;
+  }
+
+  static findUnclassified(feedbackId) {
+    return one(
+      "SELECT feedback_id, receiver_id FROM feedback WHERE feedback_id = ? AND classification_status = 'admin' LIMIT 1",
+      [feedbackId]
+    );
+  }
+
+  // The admin removed it: never delivered, counted as bounced for the sender. False if already decided.
+  static removeUnclassified(feedbackId) {
+    return this.moveToAbuseLog(feedbackId, "classification_status = 'admin'", {
+      detectedBy: "admin",
+      countBounce: true,
+    });
+  }
+
   // What a person can see about what they sent: two counts and how the last one went
   static async getSentSummary(userId) {
     const row = await one(
@@ -199,7 +243,7 @@ class FeedbackModel {
         u.last_feedback_status,
         (
           SELECT COUNT(*) FROM feedback f
-          WHERE f.sender_id = u.user_id AND f.classification_status = 'pending'
+          WHERE f.sender_id = u.user_id AND f.classification_status IN ('pending', 'admin')
         ) AS being_checked
       FROM users u
       WHERE u.user_id = ?
@@ -241,17 +285,29 @@ class FeedbackModel {
   }
 
   // Store the tags and deliver the feedback: the sender gets one more "sent"
-  // and is then erased from the feedback for good. `source` is "bert" or "llm".
-  static saveTags(feedbackId, tags, source) {
+  // and is then erased from the feedback for good. `source` is "bert", "llm" or "admin";
+  // `waiting` is the status it must still have ("pending", or "admin" for a hand-tagged one).
+  // False if it was no longer waiting (already decided or deleted).
+  static saveTags(feedbackId, tags, source, waiting = "pending") {
     return transaction(async (connection) => {
+      // Lock the row so two admins deciding at once cannot both deliver it
+      const [[feedback]] = await connection.execute(
+        "SELECT feedback_id FROM feedback WHERE feedback_id = ? AND classification_status = ? FOR UPDATE",
+        [feedbackId, waiting]
+      );
+
+      if (!feedback) return false;
+
       await replaceTags(connection, feedbackId, tags);
 
+      // updated_at is set to itself so it does not record when this person's feedback went out
       await connection.execute(
         `
         UPDATE users u
         INNER JOIN feedback f ON f.sender_id = u.user_id
-        SET u.feedback_sent = u.feedback_sent + 1, u.last_feedback_status = 'sent'
-        WHERE f.feedback_id = ? AND f.classification_status = 'pending'
+        SET u.feedback_sent = u.feedback_sent + 1, u.last_feedback_status = 'sent',
+            u.updated_at = u.updated_at
+        WHERE f.feedback_id = ?
         `,
         [feedbackId]
       );
@@ -264,6 +320,8 @@ class FeedbackModel {
         `,
         [source, feedbackId]
       );
+
+      return true;
     });
   }
 

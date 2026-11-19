@@ -21,4 +21,8 @@ router.get("/abuse-log", userEndpointLimiter, AdminController.listAbuseLog);
 router.get("/irrelevant-reports", userEndpointLimiter, AdminController.listIrrelevantReports);
 router.post("/irrelevant-reports/:feedbackId", userEndpointLimiter, AdminController.resolveIrrelevantReport);
 
+// Not classified by the LLM: list, then decide with { decision: "deliver", tags } or { decision: "remove" }
+router.get("/unclassified", userEndpointLimiter, AdminController.listUnclassified);
+router.post("/unclassified/:feedbackId", userEndpointLimiter, AdminController.resolveUnclassified);
+
 export default router;
