@@ -177,7 +177,14 @@ curl http://localhost:5000/api/health
 
 ## Demo accounts
 
-`schema.sql` creates ten made-up accounts with `@cdis.com` addresses. They all share the password `Password@123`.
+`schema.sql` creates ten made-up accounts with `@cdis.com` addresses. They start with no password, so nobody can log in until you give each one its own random password:
+
+```bash
+cd backend
+npm run set-passwords
+```
+
+This prints each email with its password once. Only bcrypt hashes go into the database, so save the list now. It only fills in accounts that have no password, so running it again never changes an existing one.
 
 | Role | Email |
 | --- | --- |
@@ -187,7 +194,7 @@ curl http://localhost:5000/api/health
 > [!WARNING]
 > These accounts are for local testing only. Remove them or change their passwords before putting the system anywhere other people can reach it.
 
-To make a hash for a different starting password, edit and run `node scripts/generateHash.js` from `backend/`.
+To get a bcrypt hash for a password of your own, run `npm run hash-password` from `backend/`. It asks for the password without showing it on screen.
 
 ## Configuration
 

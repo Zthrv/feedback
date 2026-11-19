@@ -6,6 +6,8 @@
   "scripts": {
     "start": "node src/server.js",
     "dev": "nodemon --watch src --ext js,json src/server.js",
+    "set-passwords": "node scripts/setPasswords.js",
+    "hash-password": "node scripts/generateHash.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

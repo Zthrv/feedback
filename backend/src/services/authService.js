@@ -9,8 +9,9 @@ const MIN_PASSWORD_LENGTH = 8;
 const MAX_PASSWORD_BYTES = 72;
 const RESET_TOKEN_MINUTES = 30;
 
-// Compared against when the email is unknown, so login time does not reveal whether an email exists
-const DUMMY_PASSWORD_HASH = "$2b$10$Jcdnb8mr/CseXPRjeYReZODAgk6pcWxcGqBjsuP2FmdKouTLxDIpm";
+// Compared against when the email is unknown, so login time does not reveal whether an email exists.
+// Made fresh from random bytes at startup so it matches no known password; same cost as real hashes.
+const DUMMY_PASSWORD_HASH = bcrypt.hashSync(crypto.randomBytes(32).toString("hex"), 10);
 
 class AuthService {
   static validatePassword(password) {

@@ -93,22 +93,23 @@ CREATE TABLE IF NOT EXISTS password_resets (
 );
 
 /* ===========================================================
-   DEMO USERS — all registered with password: Password@123
+   DEMO USERS — created without passwords. Give each one its own
+   random password with: cd backend && npm run set-passwords
    =========================================================== */
 
 INSERT IGNORE INTO users
 (user_id, employee_id, full_name, email, password_hash, department, designation, role, is_registered)
 VALUES
-(1, 'EMP001','Admin User',    'admin@cdis.com',  '$2b$10$Jcdnb8mr/CseXPRjeYReZODAgk6pcWxcGqBjsuP2FmdKouTLxDIpm','Management', 'Administrator',    'Admin',   TRUE),
-(2, 'EMP002','Aarav Sharma',  'aarav@cdis.com',  '$2b$10$Jcdnb8mr/CseXPRjeYReZODAgk6pcWxcGqBjsuP2FmdKouTLxDIpm','Engineering','Team Lead',        'Employee',TRUE),
-(3, 'EMP003','Priya Verma',   'priya@cdis.com',  '$2b$10$Jcdnb8mr/CseXPRjeYReZODAgk6pcWxcGqBjsuP2FmdKouTLxDIpm','Engineering','Software Engineer','Employee',TRUE),
-(4, 'EMP004','Rohan Mehta',   'rohan@cdis.com',  '$2b$10$Jcdnb8mr/CseXPRjeYReZODAgk6pcWxcGqBjsuP2FmdKouTLxDIpm','Engineering','Software Engineer','Employee',TRUE),
-(5, 'EMP005','Sneha Iyer',    'sneha@cdis.com',  '$2b$10$Jcdnb8mr/CseXPRjeYReZODAgk6pcWxcGqBjsuP2FmdKouTLxDIpm','Design',     'UI Designer',      'Employee',TRUE),
-(6, 'EMP006','Vikram Singh',  'vikram@cdis.com', '$2b$10$Jcdnb8mr/CseXPRjeYReZODAgk6pcWxcGqBjsuP2FmdKouTLxDIpm','Product',    'Product Manager',  'Employee',TRUE),
-(7, 'EMP007','Ananya Gupta',  'ananya@cdis.com', '$2b$10$Jcdnb8mr/CseXPRjeYReZODAgk6pcWxcGqBjsuP2FmdKouTLxDIpm','QA',         'QA Engineer',      'Employee',TRUE),
-(8, 'EMP008','Karan Patel',   'karan@cdis.com',  '$2b$10$Jcdnb8mr/CseXPRjeYReZODAgk6pcWxcGqBjsuP2FmdKouTLxDIpm','Engineering','DevOps Engineer',  'Employee',TRUE),
-(9, 'EMP009','Neha Joshi',    'neha@cdis.com',   '$2b$10$Jcdnb8mr/CseXPRjeYReZODAgk6pcWxcGqBjsuP2FmdKouTLxDIpm','HR',         'HR Executive',     'Employee',TRUE),
-(10,'EMP010','Arjun Nair',    'arjun@cdis.com',  '$2b$10$Jcdnb8mr/CseXPRjeYReZODAgk6pcWxcGqBjsuP2FmdKouTLxDIpm','Sales',      'Sales Associate',  'Employee',TRUE);
+(1, 'EMP001','Admin User',    'admin@cdis.com',  NULL,'Management', 'Administrator',    'Admin',   TRUE),
+(2, 'EMP002','Aarav Sharma',  'aarav@cdis.com',  NULL,'Engineering','Team Lead',        'Employee',TRUE),
+(3, 'EMP003','Priya Verma',   'priya@cdis.com',  NULL,'Engineering','Software Engineer','Employee',TRUE),
+(4, 'EMP004','Rohan Mehta',   'rohan@cdis.com',  NULL,'Engineering','Software Engineer','Employee',TRUE),
+(5, 'EMP005','Sneha Iyer',    'sneha@cdis.com',  NULL,'Design',     'UI Designer',      'Employee',TRUE),
+(6, 'EMP006','Vikram Singh',  'vikram@cdis.com', NULL,'Product',    'Product Manager',  'Employee',TRUE),
+(7, 'EMP007','Ananya Gupta',  'ananya@cdis.com', NULL,'QA',         'QA Engineer',      'Employee',TRUE),
+(8, 'EMP008','Karan Patel',   'karan@cdis.com',  NULL,'Engineering','DevOps Engineer',  'Employee',TRUE),
+(9, 'EMP009','Neha Joshi',    'neha@cdis.com',   NULL,'HR',         'HR Executive',     'Employee',TRUE),
+(10,'EMP010','Arjun Nair',    'arjun@cdis.com',  NULL,'Sales',      'Sales Associate',  'Employee',TRUE);
 
 /* ===========================================================
    ATTRIBUTES — IDs match the headings in seed_feedback.sql
