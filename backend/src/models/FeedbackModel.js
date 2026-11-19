@@ -201,28 +201,38 @@ class FeedbackModel {
     );
   }
 
-  // Feedback the LLM could not classify, waiting for an admin. The sender is never shown.
-  static async getUnclassified() {
+  // Feedback the LLM could not classify, waiting for an admin. The sender is never shown:
+  // `sent_by_me` only tells the admin asking whether they wrote it themselves.
+  static async getUnclassified(adminId) {
     const [rows] = await pool.execute(
       `
       SELECT
         f.feedback_id, f.feedback_title, f.feedback_text, f.receiver_id,
         u.full_name AS receiver_name,
-        DATE_FORMAT(f.created_at, '%Y-%m-%d') AS received_on
+        DATE_FORMAT(f.created_at, '%Y-%m-%d') AS received_on,
+        (f.sender_id <=> ?) AS sent_by_me
       FROM feedback f
       INNER JOIN users u ON u.user_id = f.receiver_id
       WHERE f.classification_status = 'admin'
       ORDER BY f.feedback_id
-      `
+      `,
+      [adminId]
     );
-    return rows;
+    return rows.map((row) => ({ ...row, sent_by_me: Boolean(row.sent_by_me) }));
   }
 
-  static findUnclassified(feedbackId) {
-    return one(
-      "SELECT feedback_id, receiver_id FROM feedback WHERE feedback_id = ? AND classification_status = 'admin' LIMIT 1",
-      [feedbackId]
+  // `sent_by_me` is a yes/no for the admin asking; the sender's ID never leaves the database
+  static async findUnclassified(feedbackId, adminId) {
+    const row = await one(
+      `
+      SELECT feedback_id, receiver_id, (sender_id <=> ?) AS sent_by_me
+      FROM feedback
+      WHERE feedback_id = ? AND classification_status = 'admin'
+      LIMIT 1
+      `,
+      [adminId, feedbackId]
     );
+    return row && { ...row, sent_by_me: Boolean(row.sent_by_me) };
   }
 
   // The admin removed it: never delivered, counted as bounced for the sender. False if already decided.

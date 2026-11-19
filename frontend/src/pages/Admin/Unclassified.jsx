@@ -133,9 +133,9 @@ function Unclassified() {
                   {item.feedback_text}
                 </p>
 
-                {sentToMe ? (
+                {sentToMe || item.sent_by_me ? (
                   <p className="mt-4 text-xs text-slate-400">
-                    Sent to you: another admin must decide on it
+                    {sentToMe ? "Sent to you" : "You sent this"}: another admin must decide on it
                   </p>
                 ) : (
                   <>

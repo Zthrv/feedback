@@ -150,7 +150,7 @@ class AdminController {
     res.json({
       success: true,
       data: {
-        items: await FeedbackModel.getUnclassified(),
+        items: await FeedbackModel.getUnclassified(req.user.userId),
         attributes: await FeedbackModel.getAttributes(),
       },
     });
@@ -167,13 +167,19 @@ class AdminController {
       throw httpError(400, "Decision must be deliver or remove");
     }
 
-    const feedback = await FeedbackModel.findUnclassified(feedbackId);
+    const feedback = await FeedbackModel.findUnclassified(feedbackId, req.user.userId);
 
     if (!feedback) throw httpError(404, "This feedback does not exist or has already been decided");
 
     // Deciding on feedback addressed to yourself would let you read or bin it before delivery
     if (feedback.receiver_id === req.user.userId) {
       throw httpError(403, "Another admin must decide on feedback sent to you");
+    }
+
+    // Delivering your own feedback would skip the language check it never finished.
+    // sender_id cannot change while the feedback waits here, so this cannot be raced.
+    if (feedback.sent_by_me) {
+      throw httpError(403, "Another admin must decide on feedback you sent");
     }
 
     let done;
